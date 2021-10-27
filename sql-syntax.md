@@ -157,3 +157,5 @@ SELECT ROUND(AVG(Price, 2)) FROM Products;
 ```
 
 ### GROUP BY
+
+Hallo Heilbronn! :)
