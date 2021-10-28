@@ -26,7 +26,7 @@ Die Reihenfolge der Spalten kann beliebig festgelegt werden:
 SELECT <spalte2, spalte3, spalte1> FROM table;
 ```
 
-### WHERE
+### WHERE und LIKE
 
 Mit dem Schlüsselwort ```WHERE``` kann die Ausgabe auf bestimmte Einträge eingeschränkt werden.
 
@@ -158,4 +158,164 @@ SELECT ROUND(AVG(Price, 2)) FROM Products;
 
 ### GROUP BY
 
-Hallo Heilbronn! :)
+Ergebnisse nach einem bestimmten Kriterium gruppieren bzw. mehrere gleiche Einträge zu einem zusammenführen. 
+
+```
+-- alle Umschühler ermitteln, die am gleichen Ort leben
+SELECT
+  *
+FROM
+  umschueler, orte
+WHERE
+  orte.postleitzahl = umschueler.postleitzahl
+GROUP BY
+  orte.postleitzahl;
+```
+
+```
+-- Durchschnittsgrösse aller Personen pro Ort ermitteln
+SELECT 
+    AVG (groesse) 
+FROM
+    Person
+GROUP BY
+    ort;
+```
+
+### HAVING
+
+Aggregatfunktionen können **nicht** in einer ```WHERE```-Klausel verwendet werden, da die ```WHERE```-Klausel immer nur eine einzige Zeile prüfen kann.
+
+Für diese Fälle nutzt mann ```HAVING```.
+
+```
+--ACHTUNG FALSCH !!!
+
+SELECT
+  ort.ortsname, COUNT(*) AS 'Anzahl Umschüler pro Ort'
+FROM
+  umschueler, ort
+WHERE
+  ort.id = umschueler.ort_id 
+  AND
+    'Anzahl Umschüler pro Ort' > 2; -- hier ist der Fehler
+GROUP BY
+    ort.id;
+```
+
+```
+-- Das ist die richtige Lösung
+
+SELECT
+  ort.ortsname, COUNT(*) AS 'Anzahl Umschüler pro Ort'
+FROM
+  umschueler, ort
+WHERE
+  ort.id = umschueler.ort_id
+GROUP BY
+    ort.id
+HAVING
+  'Anzahl Umschüler pro Ort' > 2;
+```
+
+### JOIN
+
+In SQLite gibt es einen ```INNER JOIN``` und einen ```LEFT JOIN```. 
+
+Andere SQL Dialekte haben zusätzlich einen ```RIGHT JOIN``` und eine ```FULL JOIN``` oder ```OUTER JOIN```. 
+
+Die gebräuchlichste Art des ```JOIN(T)S``` ist der ```INNER JOIN```, welcher auf zwei Arten vollzogen werden kann:
+
+```
+-- inner join ohne Schlüsselwort JOIN
+
+SELECT 
+    u.vorname, u.nachname, o.ortsname
+FROM 
+    umschueler u, ort o
+WHERE 
+    u.ort_id = o.id; 
+```
+
+```
+-- inner join mit Schlüsselwort JOIN
+
+SELECT 
+    u.vorname, u.nachname, o.ortsname
+FROM 
+    umschueler u
+JOIN
+    ort o
+ON
+    u.ort_id = o.id; 
+```
+
+Der ```INNER JOIN``` (das ```INNER``` kann weggelassen werden), gibt die Datensätze beider Tabellen aus, die miteinander verknüpft sind.
+
+Ein ```LEFT JOIN``` hingegen liefert **sämtliche** Werte der linken Tabelle, auch wenn keine Verknüpfung mit einem Datensatz der rechten Tabelle besteht und zusätzlich alle Datensätze der rechten Tabelle, die mit der linken verknüpft sind.
+
+Ein ```LEFT JOIN``` kann einfach in einen ```RIGHT JOIN``` überführt werden, indem man die beiden Tabellen vertauscht.
+
+```
+SELECT 
+    u.vorname, u.nachname, o.ortsname
+FROM 
+    ort o
+LEFT JOIN
+    umschueler u
+ON
+    u.ort_id = o.id; 
+
+```
+
+Hier werden jetzt auch die Orte ausgegeben, in denen keiner der Umschüler lebt.
+
+### Tabelle löschen
+
+```
+DROP TABLE ort;
+```
+
+### Datensätze löschen
+
+Folgendes Statement löscht alle Datensätze der Tabelle Ort. Im Gegensatz zum ```DROP TABLE``` bleibt aber die Datenbankstuktur erhalten.
+
+```
+DELETE FROM ort;
+```
+
+Einzelne Datensätze können über eine Einschränkung mit ```WHERE``` gelöscht werden.
+
+```
+DELETE FROM 
+    ort
+WHERE
+    id = 5;
+```
+
+
+### Datensätze ändern
+
+```
+UPDATE 
+    ort
+SET
+    ortsname = "Kassel"
+WHERE 
+    plz = 34121;
+```
+
+
+### Normalisierung
+
+#### 1. Normalform
+
+Alle Attributwerte müssen atomar vorliegen, können also nicht weiter unterteilt werden.
+
+#### 2. Normalform
+
+Alle Nicht-Schlüssel-Attribute hängen vom gesamten Primärschlüssel ab.
+
+#### 3. Normalform
+
+Alle Nicht-Schlüssel-Attribute sind voneinander unabhängig.
