@@ -3,4 +3,7 @@ html/html-tags.org
 html/html-tags.pdf
 html/html-tags.tex
 html/html-von-yasin.html
+flask-app/__pycache__
+flask-app/venv
+
 
