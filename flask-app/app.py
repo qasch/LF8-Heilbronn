@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -10,4 +10,8 @@ def hello():
 
 @app.route("/huhu")
 def huhu():
-    return "<h1>Huhu Du.</h1>"
+    return "Huhu Du"
+
+@app.route("/grid")
+def grid():
+    return render_template('grid.html')
