@@ -1,0 +1,111 @@
+
+/* Html Selektoren */
+* {
+    margin: 0;
+}
+
+html {
+    font-size: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+h2 {
+    text-align: right;
+}
+
+p {
+}
+
+div {
+    /*border: 1px solid black;*/
+    background: #C1661E;
+}
+
+/* Grid Layout */
+
+.grid-container {
+    display: grid;
+    grid-template-columns: ;
+}
+
+/* CSS Klassen */
+
+.main-heading {
+    background: none;
+}
+
+.main-text {
+    background: powderblue;
+    font-size: 1.2em;
+    padding: 2em 1em;
+    grid-area: maintext;
+}
+
+.menu {
+    grid-area: menu;
+}
+
+.sub-heading {
+    margin: 2em 0 1.3em 0;
+    grid-area: sub-heading;
+}
+
+.sub-text {
+    font-size: 0.8em;
+    grid-area: sub-text;
+}
+
+.grid-container {
+    background: #3f3f3f;
+    display: grid;
+    /* grid-template-columns: 100px 100px 100px; */
+    /* grid-template-columns: 20% 30% 50%; */
+    /* grid-template-columns: 20% 230px 50%; */
+    /* grid-template-columns: 2fr 1fr 1fr; */
+    /* grid-template-columns: repeat(4, 1fr); */
+    /* grid-template-rows: 300px 100px 100px; */
+    grid-template-areas:
+        "h h h h"
+        "mm . . ."
+        "s mt mt st"
+        "f f f f"
+}
+
+.grid-item-padding {
+    padding: 1.3em;
+}
+
+.grid-item-1 {
+    text-align: center;
+    background: #6C3483;
+    grid-area: h;
+}
+
+.grid-item-2 {
+    text-align: center;
+    background: #DAF7A6;
+    grid-area: mm;
+}
+
+.grid-item-3 {
+    background: #FFC300;
+    grid-area: mt;
+}
+
+.grid-item-4 {
+    background: #FF5733;
+    grid-area: st;
+}
+
+.grid-item-5 {
+    background: #C70039;
+    grid-area: s;
+}
+
+.grid-item-6 {
+    background: #900C3F;
+    grid-area: f;
+}
+
