@@ -2,7 +2,7 @@ import sqlite3
 
 # Erstelle die Datenbank test.db
 # (falls sie nicht schon vorhanden ist)
-connection = sqlite3.connect('test.db')
+connection = sqlite3.connect('flash2brain.db')
 
 cursor = connection.cursor()
 
@@ -11,10 +11,18 @@ cursor = connection.cursor()
 #sqlite3.connect('test.db').cursor()
 
 cursor.execute("""
-            CREATE TABLE IF NOT EXISTS person
-                (id INTEGER PRIMARY KEY AUTOINCREMENT, 
-                vorname TEXT, 
-                nachname TEXT);
+DROP TABLE IF EXISTS flashcard;
+""")
+
+cursor.execute("""
+CREATE TABLE flashcard (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	question TEXT NOT NULL,
+	answer TEXT NOT NULL,
+	source TEXT,
+	creator TEXT NOT NULL
+);
+
 """)
 
 connection.close()

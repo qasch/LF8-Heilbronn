@@ -26,32 +26,15 @@
         Home
       </a>
 
-      <a class="navbar-item">
-        Documentation
+      <a class="navbar-item"  href="{{ url_for('insert') }}">
+        Insert record
       </a>
 
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More
-        </a>
-
-        <div class="navbar-dropdown">
-          <a class="navbar-item">
-            About
-          </a>
-          <a class="navbar-item">
-            Jobs
-          </a>
-          <a class="navbar-item">
-            Contact
-          </a>
-          <hr class="navbar-divider">
-          <a class="navbar-item">
-            Report an issue
-          </a>
-        </div>
-      </div>
+      <a class="navbar-item"  href="{{ url_for('update') }}">
+        Update record
+      </a>
     </div>
+  </div>
 
     <div class="navbar-end">
       <div class="navbar-item">
@@ -69,28 +52,42 @@
 </nav>
 <!-- end of header menu -->
 
-<!-- begin of table with database content -->
-<table class="table">
-  <thead>
-    <tr>
-      <th>id</th>
-      <th>Vorname</th>
-      <th>Nachname</th>
-    </tr>
-  </thead>
-  <tbody>
+<section class="section">
+  <div class="container">
+    <p>Der Inhalt unserer Datenbank:</p>
+  </div>
+</section>
 
-  {% for row in rows: %}
-    <tr>
-      <th>{{ row[0] }}</th>
-      <td>{{ row[1] }}</td>
-      <td>{{ row[2] }}</td>
-    </tr>
-  {% endfor %}
+<section class="section">
+  <div class="container">
+    <!-- begin of table with database content -->
+    <table class="table">
+      <thead>
+          <tr>
+            <th>id</th>
+            <th>Frage</th>
+            <th>Antwort</th>
+            <th>Quelle</th>
+            <th>Ersteller</th>
+          </tr>
+      </thead>
+      <tbody>
 
-  </tbody>
-</table>
-<!-- end of table with database content -->
+      {% for row in rows: %}
+        <tr>
+          <th>{{ row[0] }}</th>
+          <td>{{ row[1] }}</td>
+          <td>{{ row[2] }}</td>
+          <td><a href="{{ row[3] }}" target="_blank">{{ row[3] }}</a></td>
+          <td>{{ row[4] }}</td>
+        </tr>
+      {% endfor %}
+
+      </tbody>
+    </table>
+    <!-- end of table with database content -->
+  </div>
+</section>
 
 </body>
 </html>
